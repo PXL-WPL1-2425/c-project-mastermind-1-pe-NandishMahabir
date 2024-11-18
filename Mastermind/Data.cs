@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Mastermind
 {
     public static class Data
     {
         private static Random random = new Random();
+        private static DispatcherTimer timer = new DispatcherTimer();
+        private static int secondsPassed;
         public static int Attempts { get; set; }
         static Dictionary<SolidColorBrush, string> colors = new Dictionary<SolidColorBrush, string>();
         public static Dictionary<SolidColorBrush, string> Colors
@@ -44,6 +48,7 @@ namespace Mastermind
                 int index = random.Next(0, colors.Count);
                 colorCode.Add(colors.ElementAt(index).Value);
             }
+            StartCountdown();
         }
         public static List<int> ValidateColorCode(List<string> inputColors)
         {
@@ -78,7 +83,11 @@ namespace Mastermind
         {
             Attempts++;
         }
-
+        /// <summary>
+        /// De ToogleDebug methode zorgt er voor dat de debug
+        /// mode in- of uitgeschakeld wordt.
+        /// </summary>
+        /// <param name="textBox">Naam van de Textbox die verborgen/weergegeven wordt door de debug methode.</param>
         public static void ToggleDebug(TextBox textBox)
         {
             if (textBox.Text == string.Empty)
@@ -97,6 +106,30 @@ namespace Mastermind
             else
             {
                 textBox.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+        /// <summary>
+        /// De StartCountdown functie start een timer met een
+        /// interval van 1 seconde.
+        /// </summary>
+        public static void StartCountdown()
+        {
+            secondsPassed = 0;
+            timer.Tick += new EventHandler(StopCountdown);
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
+        }
+        /// <summary>
+        /// De StopCountdown methode laat de timer na 10 seconden stoppen.
+        /// </summary>
+        public static void StopCountdown(object sender, EventArgs e)
+        {
+            secondsPassed++;
+            if (secondsPassed == 10)
+            {
+                timer.Stop();
+                IncreaseAttempst();
+                StartCountdown();
             }
         }
     }

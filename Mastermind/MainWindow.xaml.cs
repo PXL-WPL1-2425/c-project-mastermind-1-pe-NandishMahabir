@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Mastermind
 {
@@ -20,16 +21,20 @@ namespace Mastermind
     /// </summary>
     public partial class MainWindow : Window
     {
+        DispatcherTimer titleUpdate = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
             Data.GenerateRandomColorCode();
-            ChangeTitle();
             FillComboBoxes();
+
+            titleUpdate.Tick += new EventHandler(ChangeTitle);
+            titleUpdate.Interval = new TimeSpan(0, 0, 1);
+            titleUpdate.Start();
         }
-        private void ChangeTitle()
+        public void ChangeTitle(Object sender, EventArgs e)
         {
-            this.Title = $"Poging {Data.Attempts.ToString()}";
+            this.Title = $"Poging {Data.Attempts}";
         }
         private void FillComboBoxes()
         {
@@ -105,7 +110,7 @@ namespace Mastermind
                 }
                 ClearComboBoxSelection();
                 Data.IncreaseAttempst();
-                ChangeTitle();
+                Data.StartCountdown();
             }
             else
             {

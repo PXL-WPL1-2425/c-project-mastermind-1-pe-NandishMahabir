@@ -30,5 +30,6 @@
         <StackPanel Name="StackColor4" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal" Margin="5 20"/>
         <Button Name="BtnValidateCode" Content="Check Code" FontSize="20" Grid.Column="1" Grid.Row="4" Margin="75 16" Click="BtnValidateCode_Click" />
         <TextBox Name="ColorCodeTextbox" Grid.Row="5" Grid.Column="1" Margin="75 10" HorizontalContentAlignment="Center" FontSize="18" Visibility="Collapsed" IsEnabled="False"/>
+        <TextBox Name="TimerTextbox" Grid.Row="5" Grid.Column="3" Margin="25 10" HorizontalContentAlignment="Center" FontSize="18" Visibility="Visible" IsEnabled="False"/>
     </Grid>
 </Window>
