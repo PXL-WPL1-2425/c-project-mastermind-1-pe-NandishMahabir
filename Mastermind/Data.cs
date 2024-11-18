@@ -10,6 +10,7 @@ namespace Mastermind
     public static class Data
     {
         private static Random random = new Random();
+        public static int Attempts { get; set; }
         static Dictionary<SolidColorBrush, string> colors = new Dictionary<SolidColorBrush, string>();
         public static Dictionary<SolidColorBrush, string> Colors
         {
@@ -32,6 +33,7 @@ namespace Mastermind
             colors.Add(Brushes.Green, "Green");
             colors.Add(Brushes.Blue, "Blue");
             colors.Add(Brushes.White, "White");
+            Attempts = 1;
         }
         public static void GenerateRandomColorCode()
         {
@@ -69,6 +71,11 @@ namespace Mastermind
             Color2LabelAdded = false;
             Color3LabelAdded = false;
             Color4LabelAdded = false;
+        }
+
+        public static void IncreaseAttempst()
+        {
+            Attempts++;
         }
     }
 }

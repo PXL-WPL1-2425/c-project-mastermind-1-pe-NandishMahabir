@@ -23,18 +23,13 @@ namespace Mastermind
         public MainWindow()
         {
             InitializeComponent();
+            Data.GenerateRandomColorCode();
             ChangeTitle();
             FillComboBoxes();
         }
         private void ChangeTitle()
         {
-            Data.GenerateRandomColorCode();
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach(var color in Data.ColorCode)
-            {
-                stringBuilder.Append($"{color} ");
-            }
-            this.Title = stringBuilder.ToString();
+            this.Title = $"Poging {Data.Attempts.ToString()}";
         }
         private void FillComboBoxes()
         {
@@ -109,6 +104,8 @@ namespace Mastermind
                     ChangeBorder(stackPanels[i], points[i]);
                 }
                 ClearComboBoxSelection();
+                Data.IncreaseAttempst();
+                ChangeTitle();
             }
             else
             {
