@@ -134,5 +134,12 @@ namespace Mastermind
             CboColor3.SelectedIndex = -1;
             CboColor4.SelectedIndex = -1;
         }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F12 && e.KeyboardDevice.Modifiers == ModifierKeys.Control)
+            {
+                Data.ToggleDebug(ColorCodeTextbox);
+            }
+        }
     }
 }

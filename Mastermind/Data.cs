@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Mastermind
@@ -76,6 +77,27 @@ namespace Mastermind
         public static void IncreaseAttempst()
         {
             Attempts++;
+        }
+
+        public static void ToggleDebug(TextBox textBox)
+        {
+            if (textBox.Text == string.Empty)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < colorCode.Count; i++)
+                {
+                    stringBuilder.Append($"{colorCode[i]} ");
+                }
+                textBox.Text = stringBuilder.ToString();
+            }
+            if (textBox.Visibility == System.Windows.Visibility.Visible)
+            {
+                textBox.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                textBox.Visibility = System.Windows.Visibility.Visible;
+            }
         }
     }
 }
